@@ -4,7 +4,7 @@ import { post } from 'superagent'
 export default function search (req: NextApiRequest, res: NextApiResponse) {
   const { title } = req.body
   if (!title) return res.json({ success: false, msg: '제목을 입력해주세요.' })
-  post('http://localhost:8010/search')
+  post(`http://localhost:${process.env.PORT}/search`)
     .set('content-type', 'application/json')
     .send({ title })
     .then((_res) => {
