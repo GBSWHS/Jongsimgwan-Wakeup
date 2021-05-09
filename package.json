@@ -1,43 +1,12 @@
 {
-  "name": "jongsimgwan-wakeup",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
+  "name": "Jongsimgwan-wakeup-music",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/GBSWHS/Jongsimgwan-wakeup",
+  "author": "noeulnight <noeulnight.mail@gmail.com>",
+  "license": "MIT",
   "dependencies": {
-    "@fontsource/noto-sans-kr": "^4.2.2",
-    "cookieparser": "^0.1.0",
-    "crypto-random-string": "^3.3.1",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.95.4",
-    "moment": "^2.29.1",
-    "multisort": "^0.5.3",
-    "mysql": "^2.18.1",
-    "next": "10.0.9",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "sf": "^0.2.0",
-    "sha256": "^0.2.0",
-    "superagent": "^6.1.0",
-    "swr": "^0.5.4"
-  },
-  "devDependencies": {
-    "@types/node": "^14.14.37",
-    "@types/react": "^17.0.3",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
-    "autoprefixer": "^10.2.5",
-    "eslint": "^7.23.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-react": "^7.23.1",
-    "postcss": "^8.2.8",
-    "tailwindcss": "^2.0.4",
-    "typescript": "^4.2.3"
+    "express": "^4.17.1",
+    "superagent": "^6.1.0"
   }
 }

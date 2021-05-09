@@ -1,9 +1,8 @@
 from ytmusicapi import YTMusic
 import json
 import sys
-import os
 
-ytmusic = YTMusic(os.getcwd() + '/data/auth.json')
+ytmusic = YTMusic('./auth.json')
 
 title = sys.argv
 del title[0]
