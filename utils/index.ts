@@ -18,7 +18,7 @@ export function getChart () {
       await data.forEach(async (v) => {
         const voted = await db.where({ musicid: v.id }).from('voted').select('*')
         chart.push({ voted, info: v })
-        if (chart.length === data.length) resolve(chart.sort((a, b) => { return b.voted.length - a.voted.length }))
+        if (chart.length === data.length) resolve(chart.sort((a, b) => { return b.voted.length - a.voted.length }).sort((a, b) => { return b.info.created_at - a.info.created_at }))
       })
     })
   })

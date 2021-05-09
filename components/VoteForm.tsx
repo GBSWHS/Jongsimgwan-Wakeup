@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import Card from './Card'
 import Link from 'next/link'
+import Card from './Card'
 
 export default function VoteForm ({ chart, voted }: any) {
   const router = useRouter()
@@ -31,17 +31,17 @@ export default function VoteForm ({ chart, voted }: any) {
           <Link href="/"><button className="inline w-full max-w-sm align-top bg-gray-500 text-white rounded-md shadow p-2">돌아가기</button></Link>
         </div>
         <Card>
-          <span className="block mt-3">기상송 노래 목록</span>
+          <span className="block mt-3 mb-2">기상송 노래 목록</span>
           {chart.map((data) => (
-            <div key={ data.info.id } className="hover:bg-gray-200">
-              <img src={'https://img.youtube.com/vi/' + data.info.id + '/mqdefault.jpg'} />
-              { data.info.title }{ JSON.parse(data.info.artist)[0] ? JSON.parse(data.info.artist)[0].name : '없음' }
-              { voted
+            <div key={ data.info.id } className="hover:bg-gray-200 p-1 rounded-2xl grid grid-rows-3 grid-flow-col ">
+              <div className="row-span-3"><Link href={'https://youtu.be/' + data.info.id}><img className="rounded-2xl w-32 h-20" src={'https://img.youtube.com/vi/' + data.info.id + '/mqdefault.jpg'} /></Link></div>
+              <div className="col-span-2">{ data.info.title }</div>
+              <div className="row-span-2 col-span-2">{ voted
                 ? voted.musicid === data.info.id
-                  ? <span className="inline w-full align-top bg-green-500 text-white rounded-md shadow p-2">투표함</span>
-                  : <button onClick={() => Vote(data.info.id)} className="inline w-full align-top bg-red-500 text-white rounded-md shadow p-2">투표</button>
-                : <button onClick={() => Vote(data.info.id)} className="inline w-full align-top bg-red-500 text-white rounded-md shadow p-2">투표</button>
-              }
+                  ? <button disabled className="inline w-32 align-top bg-green-500 text-white rounded-md shadow p-2 mt-2">투표함</button>
+                  : <button onClick={() => Vote(data.info.id)} className="inline w-32 align-top bg-red-500 text-white rounded-md shadow p-2 mt-2">투표</button>
+                : <button onClick={() => Vote(data.info.id)} className="inline w-32 align-top bg-red-500 text-white rounded-md shadow p-2 mt-2">투표</button>
+              }</div>
             </div>
           ))}
         </Card>
