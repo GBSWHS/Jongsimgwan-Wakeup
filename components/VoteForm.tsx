@@ -33,14 +33,14 @@ export default function VoteForm ({ chart, voted }: any) {
         <Card>
           <span className="block mt-3 mb-2">기상송 노래 목록</span>
           {chart.map((data) => (
-            <div key={ data.info.id } className="hover:bg-gray-200 p-1 rounded-2xl grid grid-rows-3 grid-flow-col ">
-              <div className="row-span-3"><Link href={'https://youtu.be/' + data.info.id}><img className="rounded-2xl w-32 h-20" src={'https://img.youtube.com/vi/' + data.info.id + '/mqdefault.jpg'} /></Link></div>
+            <div key={ data.info.id } className="p-2 rounded-2xl grid grid-rows-3 grid-flow-col bg-gray-200 mb-1">
+              <div className="row-span-3 mt-2 max-h-10"><Link href={'https://youtu.be/' + data.info.id}><img className="rounded-lg w-24" src={'https://img.youtube.com/vi/' + data.info.id + '/mqdefault.jpg'} /></Link></div>
               <div className="col-span-2">{ data.info.title }</div>
               <div className="row-span-2 col-span-2">{ voted
                 ? voted.musicid === data.info.id
-                  ? <button disabled className="inline w-32 align-top bg-green-500 text-white rounded-md shadow p-2 mt-2">투표함</button>
-                  : <button onClick={() => Vote(data.info.id)} className="inline w-32 align-top bg-red-500 text-white rounded-md shadow p-2 mt-2">투표</button>
-                : <button onClick={() => Vote(data.info.id)} className="inline w-32 align-top bg-red-500 text-white rounded-md shadow p-2 mt-2">투표</button>
+                  ? <button disabled className="inline w-8/12 align-top bg-green-500 text-white rounded-md shadow p-2">투표함</button>
+                  : <button onClick={() => Vote(data.info.id)} className="inline w-8/12 align-top bg-red-500 text-white rounded-md shadow p-2">투표</button>
+                : <button onClick={() => Vote(data.info.id)} className="inline w-8/12 align-top bg-red-500 text-white rounded-md shadow p-2">투표</button>
               }</div>
             </div>
           ))}
