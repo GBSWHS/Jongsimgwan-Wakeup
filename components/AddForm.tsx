@@ -19,14 +19,14 @@ export default function AddForm () {
       body: JSON.stringify({ title: search })
     }).then((res) => res.json())
 
-    if (!res.search) {
+    if (!res.msg) {
       setImage('/images/searchdef.jpg')
       setText('검색결과 없음')
       return
     }
-    setImage(`https://img.youtube.com/vi/${res.search.videoId}/mqdefault.jpg`)
-    setText(`${res.search.artists[0] ? res.search.artists[0].name : null} : ${res.search.title}`)
-    setData(res.search)
+    setImage(`https://img.youtube.com/vi/${res.msg.videoId}/mqdefault.jpg`)
+    setText(`${res.msg.artists[0] ? res.msg.artists[0].name : null} : ${res.msg.title}`)
+    setData(res.msg)
   }
 
   async function onSubmit (event) {
