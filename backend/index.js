@@ -33,5 +33,5 @@ async function ResetData () {
   })
 }
 
-schedule('0 8 * * 1-6', () => ResetData())
-schedule('30 8 * * 0', () => ResetData())
+schedule('0 8 * * 1-6', ResetData)
+schedule('30 8 * * 0', ResetData)

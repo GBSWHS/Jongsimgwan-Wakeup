@@ -1,3 +1,4 @@
+import moment from 'moment'
 import knex from 'knex'
 
 const db = knex({
@@ -17,8 +18,12 @@ export function getChart () {
     db.select('*').from('musicid').then(async (data) => {
       await data.forEach(async (v) => {
         const voted = await db.where({ musicid: v.id }).from('voted').select('*')
-        chart.push({ voted, info: v })
-        if (chart.length === data.length) resolve(chart.sort((a, b) => { return b.voted.length - a.voted.length }).sort((a, b) => { return b.info.created_at - a.info.created_at }))
+        chart.push({ voted, info: v, created_at: moment(v.created_at).format('YYYYMMDDhhmmss') })
+        if (chart.length === data.length) {
+          chart.sort((a, b) => a.created_at - b.created_at)
+          chart.sort((a, b) => b.voted.length - a.voted.length)
+          resolve(chart)
+        }
       })
     })
   })

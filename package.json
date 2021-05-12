@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.4",
     "moment": "^2.29.1",
+    "multi-sort": "^1.1.0",
     "mysql": "^2.18.1",
     "next": "10.0.9",
     "react": "17.0.2",
