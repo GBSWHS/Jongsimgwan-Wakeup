@@ -24,7 +24,9 @@
     "sf": "^0.2.0",
     "sha256": "^0.2.0",
     "superagent": "^6.1.0",
-    "swr": "^0.5.4"
+    "swr": "^0.5.4",
+    "youtube-search-api": "^1.0.10",
+    "youtube-search-without-api-key": "^1.0.5"
   },
   "devDependencies": {
     "@types/node": "^14.14.37",

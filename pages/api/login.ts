@@ -6,11 +6,10 @@ import sha256 from 'sha256'
 const db = knex({
   client: 'mysql',
   connection: {
-    host: process.env.MYSQLURL,
+    host: 'localhost',
     port: 3306,
-    database: process.env.DB,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPW
+    database: 'wakeup',
+    user: 'wakeup'
   }
 })
 

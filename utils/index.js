@@ -1,14 +1,14 @@
-import moment from 'moment'
-import knex from 'knex'
+const yt = require('youtube-search-api')
+const moment = require('moment')
+const knex = require('knex')
 
 const db = knex({
   client: 'mysql',
   connection: {
-    host: process.env.MYSQLURL,
+    host: 'localhost',
     port: 3306,
-    database: process.env.DB,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPW
+    database: 'wakeup',
+    user: 'wakeup'
   }
 })
 
@@ -25,6 +25,14 @@ export function getChart () {
           resolve(chart)
         }
       })
+    })
+  })
+}
+
+export async function ytSearch (query) {
+  return new Promise((resolve) => {
+    yt.GetListByKeyword(`${query} "topic"`, false).then((result) => {
+      resolve(result.items.filter((v) => v.thumbnail.thumbnails[0].width === 360 && v.thumbnail.thumbnails[0].height === 202))
     })
   })
 }

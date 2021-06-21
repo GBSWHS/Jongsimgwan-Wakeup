@@ -27,7 +27,5 @@ create table musicid (
   uploadby varchar(20) not null,
   duration varchar(10) not null,
   title varchar(100) not null,
-  artist text,
-  album text,
   created_at timestamp default current_timestamp
 );

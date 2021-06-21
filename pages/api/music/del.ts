@@ -3,7 +3,7 @@ import { verify } from 'jsonwebtoken'
 import { parse } from 'cookieparser'
 import knex from 'knex'
 
-const db = knex({ client: 'mysql', connection: { host: process.env.MYSQLURL, port: 3306, database: process.env.DB, user: process.env.MYSQLUSER, password: process.env.MYSQLPW } })
+const db = knex({ client: 'mysql', connection: { host: 'localhost', port: 3306, database: 'wakeup', user: 'wakeup' } })
 
 export default async function del (req: NextApiRequest, res: NextApiResponse) {
   if (!req.headers.cookie) return res.json({ redirect: '/login' })

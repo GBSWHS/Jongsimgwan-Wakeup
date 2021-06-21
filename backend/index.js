@@ -1,34 +1,31 @@
 const { schedule } = require('node-cron')
+const yt = require('youtube-search-api')
 const Melon = require('melon-chart-api')
-const superagent = require('superagent')
-const path = require('path').resolve()
 const moment = require('moment')
 const knex = require('knex')
-require('dotenv').config({ path: path + '/../.env' })
 
 const db = knex({
   client: 'mysql',
   connection: {
-    host: process.env.MYSQLURL,
+    host: 'localhost',
     port: 3306,
-    database: process.env.DB,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPW
+    database: 'wakeup',
+    user: 'wakeup'
   }
 })
 
-if (process.argv[2]) return ResetData()
-
+ResetData()
 async function ResetData () {
   await db.from('musicid').select('*').del()
   await db.from('voted').select('*').del()
-  Melon(moment().format('MM/DD/YYYY'), { cutLine: 10 }).daily().then(chartData => {
-    const chart = chartData.data[0]
-    superagent.post(`http://localhost:${process.env.PORT}/search`).send({ title: chart.artist + ' ' + chart.title }).then(async (data) => {
-      if (!data || !data.body.success) return console.log(data.body)
-      const { title, duration, album, videoId, artists } = data.body.search
-      await db.insert({ title, duration, album: JSON.stringify(album), artist: JSON.stringify(artists), id: videoId, uploadby: '0000' }).from('musicid').select('*')
-      console.log(`제목 : ${title}, 아티스트 : ${artists[0].name}, 길이 : ${duration}`)
+  Melon(moment().format('MM/DD/YYYY'), { cutLine: 10 }).daily().then(chart => {
+    yt.GetListByKeyword(`${chart.data[0].title} "topic"`, false).then(async (result) => {
+      const data = result.items.filter((v) => v.thumbnail.thumbnails[0].width === 360 && v.thumbnail.thumbnails[0].height === 202)
+      if (!data) return console.log(data)
+      const { id, title, length } = data[0]
+      const duration = length.simpleText
+      await db.insert({ title, duration, id, uploadby: '0000' }).from('musicid').select('*')
+      console.info(`──────────────────────────────────────────────────────────────────────────\n${moment().format('YYYY년 MM월 DD일 hh시 mm분 ss초')} 갱신\n노래 제목: ${title}\n노래 길이: ${duration}\n──────────────────────────────────────────────────────────────────────────`)
     })
   })
 }

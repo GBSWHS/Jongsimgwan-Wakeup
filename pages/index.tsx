@@ -27,7 +27,7 @@ export default function Home () {
   return (
     <Container>
       <Scroller>
-        <Chart chart={chart} />
+        {/* <Chart chart={chart} /> */}
         <LoginInfo user={user} />
         <MusicBtn added={data} />
 

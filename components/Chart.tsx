@@ -3,6 +3,7 @@ import Card from './Card'
 import sf from 'sf'
 
 export default function Chart ({ chart }: any) {
+  console.log(chart)
   const imgurl = 'https://img.youtube.com/vi/' + chart[0].info.id + '/mqdefault.jpg'
   const yturl = 'https://youtu.be/' + chart[0].info.id
   const info = chart[0].info
