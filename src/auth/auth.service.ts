@@ -61,7 +61,6 @@ export class AuthService {
         expiresIn: '30m'
       })
     } catch (e) {
-      console.log(e)
       throw new ForbiddenException('만료된 로그인이거나 위변조된 로그인입니다.')
     }
   }
@@ -74,8 +73,7 @@ export class AuthService {
         issuer: 'https://music.gbsw.hs.kr'
       }) as Token
     } catch (e) {
-      console.log(e)
-      throw new ForbiddenException('만료된 로그인이거나 위변조된 로그인입니다.')
+      return null
     }
   }
 }
