@@ -1,8 +1,8 @@
 import { ForbiddenException, Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { randomBytes } from 'crypto'
-import { fetch } from 'undici'
 import * as jwt from 'jsonwebtoken'
+import axios from 'axios'
 import { type Token } from 'src/interface/Token'
 
 @Injectable()
@@ -37,7 +37,7 @@ export class AuthService {
     if (!this.nonces.has(state)) throw new ForbiddenException('위변조된 토큰입니다.')
 
     const PUBKEY_URL = this.configService.get<string>('PUBKEY_URL', '')
-    const pubkey = await fetch(PUBKEY_URL).then(async (res) => await res.text())
+    const pubkey = await axios({ method: 'GET', url: PUBKEY_URL })
 
     const nonce = this.nonces.get(state)
     this.nonces.delete(state)
@@ -46,7 +46,7 @@ export class AuthService {
       const CLIENT_ID = this.configService.get<string>('CLIENT_ID', '')
       const ISSUER = this.configService.get<string>('ISSUER', '')
 
-      const verified = jwt.verify(token, pubkey, {
+      const verified = jwt.verify(token, pubkey.data, {
         algorithms: ['ES256'],
         audience: CLIENT_ID,
         issuer: ISSUER,

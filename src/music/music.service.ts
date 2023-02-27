@@ -16,6 +16,10 @@ export class MusicService {
     return await this.musicRepository.find()
   }
 
+  public async findOne (musicId: string): Promise<MusicEntity | null> {
+    return await this.musicRepository.findOneBy({ id: musicId })
+  }
+
   public async search (query: string): Promise<Music[]> {
     const result = await yts(query + ' topic')
     return result.videos as Music[]

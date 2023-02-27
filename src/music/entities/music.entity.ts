@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { VoteEntity } from 'src/vote/entities/vote.entity'
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 @Entity('music')
 export class MusicEntity {
@@ -25,4 +26,7 @@ export class MusicEntity {
 
   @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date
+
+  @OneToMany(() => VoteEntity, (vote) => vote.music)
+    votes: VoteEntity[]
 }
