@@ -4,6 +4,7 @@ import { type Music } from 'src/interface/Music'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MusicEntity } from './entities/music.entity'
 import { Repository } from 'typeorm'
+import { Cron } from '@nestjs/schedule'
 
 @Injectable()
 export class MusicService {
@@ -11,6 +12,11 @@ export class MusicService {
     @InjectRepository(MusicEntity)
     private readonly musicRepository: Repository<MusicEntity>
   ) {}
+
+  @Cron('10 8 * * *')
+  private async reset (): Promise<void> {
+    await this.musicRepository.clear()
+  }
 
   public async getAll (): Promise<MusicEntity[]> {
     return await this.musicRepository.find()

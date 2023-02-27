@@ -1,4 +1,5 @@
 import { type MiddlewareConsumer, Module, type NestModule } from '@nestjs/common'
+import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ResolveTokenMiddleware } from './auth/auth.middleware'
 import { AuthModule } from './auth/auth.module'
@@ -16,6 +17,7 @@ import { VoteModule } from './vote/vote.module'
       entities: ['./dist/**/*.entity{.ts,.js}'],
       synchronize: true
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     MusicModule,
     VoteModule

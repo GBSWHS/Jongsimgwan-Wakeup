@@ -1,4 +1,5 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
+import { Cron } from '@nestjs/schedule'
 import { InjectRepository } from '@nestjs/typeorm'
 import { type MusicEntity } from 'src/music/entities/music.entity'
 import { MusicService } from 'src/music/music.service'
@@ -12,6 +13,11 @@ export class VoteService {
     private readonly voteRepository: Repository<VoteEntity>,
     private readonly musicService: MusicService
   ) {}
+
+  @Cron('10 8 * * *')
+  private async reset (): Promise<void> {
+    await this.voteRepository.clear()
+  }
 
   public async rank (): Promise<any> {
     const returns = await this.voteRepository
