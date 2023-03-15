@@ -35,7 +35,7 @@ export class MusicController {
 
   @Post('/')
   @UseGuards(AuthGuard)
-  public async add (@Body('id') musicId: string, @Res({ passthrough: true }) res: Response): Promise<ResponseBody<Music>> {
+  public async add (@Body('musicId') musicId: string, @Res({ passthrough: true }) res: Response): Promise<ResponseBody<Music>> {
     if (!musicId) throw new BadRequestException()
     const addResult = await this.musicService.add(res.locals.id, musicId)
 

@@ -2,6 +2,7 @@ import { Controller, Get, Query, Redirect, Res, UseGuards } from '@nestjs/common
 import { Response } from 'express'
 import { AuthGuard } from './auth.guard'
 import { AuthService } from './auth.service'
+import { ResponseBody } from 'src/interface/ResponseBody'
 
 @Controller('auth')
 export class AuthController {
@@ -29,7 +30,10 @@ export class AuthController {
 
   @Get('/me')
   @UseGuards(AuthGuard)
-  public me (@Res({ passthrough: true }) res: Response): string {
-    return res.locals.id
+  public me (@Res({ passthrough: true }) res: Response): ResponseBody<any> {
+    return {
+      success: true,
+      body: res.locals
+    }
   }
 }

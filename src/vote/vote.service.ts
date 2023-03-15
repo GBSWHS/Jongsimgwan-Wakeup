@@ -21,13 +21,20 @@ export class VoteService {
 
   public async rank (): Promise<any> {
     const returns = await this.voteRepository
-      .createQueryBuilder('vote')
-      .select('vote.music_id')
-      .addSelect('COUNT(*) AS rank')
-      .leftJoinAndSelect('vote.music', 'music')
-      .groupBy('vote.music_id')
-      .orderBy('rank', 'DESC')
-      .getRawMany()
+      .query(`
+        SELECT music.*, IFNULL(COUNT(vote.music_id), 0) AS vote_count
+        FROM music
+        LEFT JOIN vote ON music.id = vote.music_id
+        GROUP BY music.id
+        ORDER BY vote_count DESC;      
+      `)
+      // .select('vote.music_id')
+      // .addSelect('COUNT(*) AS rank')
+      // .leftJoin('vote.music', 'music')
+      // .where('music.id is null')
+      // .groupBy('vote.music_id')
+      // .orderBy('rank', 'DESC')
+      // .getRawMany()
 
     return returns
   }
